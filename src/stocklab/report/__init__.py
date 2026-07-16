@@ -1,1 +1,1 @@
-
+"""stocklab.report subpackage."""
