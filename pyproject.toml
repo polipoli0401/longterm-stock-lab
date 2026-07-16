@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stocklab"
+version = "0.1.0"
+description = "Long-term stock investment support: data/statistics/ML-driven stock selection"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.26",
+    "yfinance>=0.2.40",
+    "scikit-learn>=1.4",
+    "PyYAML>=6.0",
+    "requests>=2.31",
+    "joblib>=1.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = [
+    "B905",  # do not force zip(strict=); lengths are validated where it matters
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+# Black compatibility (if you prefer Black over ruff format)
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
