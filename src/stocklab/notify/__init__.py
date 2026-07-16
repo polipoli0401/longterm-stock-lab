@@ -1,1 +1,1 @@
-
+"""stocklab.notify subpackage."""
