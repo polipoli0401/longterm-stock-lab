@@ -55,6 +55,7 @@ class BacktestEngine:
         self.cfg = cfg
         px = prices.drop_duplicates(subset=["date", "ticker"], keep="last")
         self.px = px.pivot(index="date", columns="ticker", values="close").sort_index()
+        self.px.index = self.px.index.astype("datetime64[ns]")
         self.bench = (
             benchmark_close.sort_index().reindex(self.px.index).ffill()
             if benchmark_close is not None and not benchmark_close.empty
@@ -78,7 +79,7 @@ class BacktestEngine:
             ValueError: When no trade can be generated (period too short).
         """
         preds = predictions.copy()
-        preds["date"] = pd.to_datetime(preds["date"])
+        preds["date"] = pd.to_datetime(preds["date"]).astype("datetime64[ns]")
         index = self.px.index
         pred_dates = sorted(d for d in preds["date"].unique() if d in index)
         if not pred_dates:
