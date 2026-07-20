@@ -140,6 +140,9 @@ class PriceFetcher:
         df["date"] = pd.to_datetime(df["date"])
         if getattr(df["date"].dt, "tz", None) is not None:
             df["date"] = df["date"].dt.tz_localize(None)
+        # pandas>=3 may infer coarser datetime units (s/us) from source data;
+        # normalize to ns so downstream merges never hit unit mismatches.
+        df["date"] = df["date"].astype("datetime64[ns]")
         df = df.dropna(subset=["close"]).sort_values(["ticker", "date"])
         return df[["date", "ticker", *PRICE_COLUMNS]].reset_index(drop=True)
 

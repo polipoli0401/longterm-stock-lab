@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -128,7 +128,7 @@ class Storage:
             query += " WHERE " + " AND ".join(conds)
         query += " ORDER BY ticker, date"
         df = pd.read_sql_query(query, self._conn, params=params or None)
-        df["date"] = pd.to_datetime(df["date"])
+        df["date"] = pd.to_datetime(df["date"]).astype("datetime64[ns]")
         return df
 
     # ---------------------------------------------------- fundamentals
@@ -156,7 +156,7 @@ class Storage:
 
     def upsert_meta(self, shares: dict[str, float]) -> None:
         """Store per-ticker metadata such as shares outstanding."""
-        now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        now = datetime.now(UTC).isoformat(timespec="seconds")
         rows = [(t, float(v), now) for t, v in shares.items() if v]
         if rows:
             self._conn.executemany(
@@ -186,8 +186,8 @@ class Storage:
         except ValueError:
             return True
         if updated.tzinfo is None:
-            updated = updated.replace(tzinfo=timezone.utc)
-        return datetime.now(timezone.utc) - updated > timedelta(days=max_age_days)
+            updated = updated.replace(tzinfo=UTC)
+        return datetime.now(UTC) - updated > timedelta(days=max_age_days)
 
     # -------------------------------------------------------- results
     def save_ranking(self, run_date: str, records: list[dict[str, Any]]) -> None:
@@ -214,7 +214,7 @@ class Storage:
             "INSERT INTO run_log VALUES (?,?,?,?)",
             (
                 RUN_ID,
-                datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                datetime.now(UTC).isoformat(timespec="seconds"),
                 kind,
                 json.dumps(payload, ensure_ascii=False, default=str),
             ),
