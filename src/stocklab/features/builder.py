@@ -174,7 +174,7 @@ class FeatureBuilder:
             return pd.DataFrame(columns=out_cols)
 
         f = fundamentals.copy()
-        f["fiscal_end"] = pd.to_datetime(f["fiscal_end"])
+        f["fiscal_end"] = pd.to_datetime(f["fiscal_end"]).astype("datetime64[ns]")
         f = f.sort_values(["ticker", "fiscal_end"]).reset_index(drop=True)
         g = f.groupby("ticker")
 
@@ -273,7 +273,10 @@ class FeatureBuilder:
 def _pivot(prices: pd.DataFrame, value: str) -> pd.DataFrame:
     """Convert long-format prices to wide format (date x ticker)."""
     df = prices.drop_duplicates(subset=["date", "ticker"], keep="last")
-    return df.pivot(index="date", columns="ticker", values=value).sort_index()
+    wide = df.pivot(index="date", columns="ticker", values=value).sort_index()
+    # Normalize to ns so merges between derived frames never mix datetime units.
+    wide.index = wide.index.astype("datetime64[ns]")
+    return wide
 
 
 def _to_long(wide: pd.DataFrame, value_name: str) -> pd.DataFrame:
