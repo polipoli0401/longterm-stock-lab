@@ -2,7 +2,16 @@
 
 An automated analysis system that supports **stock-selection decisions** for long-term investing in Japanese equities. It runs daily on GitHub Actions and delivers a machine-learning-based ranking of buy candidates plus a risk analysis of your current holdings — always with the reasoning attached, as reports and notifications.
 
-> ⚠️ This system is for informational purposes only. It never executes trades automatically, and nothing it outputs is a recommendation to buy or sell any security. All investment decisions are your own responsibility.
+> ⚠️ This is a personal research /
+verification project ("lab"), published
+for portfolio and educational purposes.
+This system is for informational
+purposes only. It never executes trades
+automatically, and nothing it outputs is
+a recommendation to buy or sell any
+security. All investment decisions are
+your own responsibility.
+
 
 ## Key Features
 
