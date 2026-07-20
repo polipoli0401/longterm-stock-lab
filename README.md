@@ -169,6 +169,12 @@ ruff check . && ruff format .   # lint / format
 pytest                          # tests (leak checks, known-value metric checks)
 ```
 
+## Acknowledgements
+
+Developed with AI assistance (Claude by Anthropic).
+Design decisions, verification, and operation
+by the repository owner.
+
 ---
 
 *Nothing in this repository constitutes investment advice. Investing involves risk.*
