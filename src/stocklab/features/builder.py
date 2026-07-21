@@ -20,6 +20,7 @@ import numpy as np
 import pandas as pd
 
 from stocklab.config import FeatureConfig
+from stocklab.currency import unit_for
 from stocklab.logger import get_logger, log_event
 
 logger = get_logger(__name__)
@@ -122,7 +123,12 @@ class FeatureBuilder:
             )
 
         shares = shares or {}
-        merged["mcap"] = merged["close"] * merged["ticker"].map(shares)
+        # Value metrics use the native-currency price so FX cancels out
+        # (statements from yfinance are in the listing currency).
+        native = (
+            merged["close_native"] if "close_native" in merged.columns else merged["close"]
+        )
+        merged["mcap"] = native * merged["ticker"].map(shares)
         merged["earnings_yield"] = merged["net_income"] / merged["mcap"]
         merged["book_to_price"] = merged["equity"] / merged["mcap"]
         merged["fcf_yield"] = merged["free_cf"] / merged["mcap"]
@@ -145,6 +151,8 @@ class FeatureBuilder:
         rets = px / px.shift(1) - 1.0
 
         feats: dict[str, pd.DataFrame] = {"close": px}
+        if "close_native" in prices.columns:
+            feats["close_native"] = _pivot(prices, "close_native")
         for w in self.cfg.momentum_windows:
             feats[f"mom_{w}"] = px / px.shift(w) - 1.0
         feats["volatility"] = rets.rolling(self.cfg.volatility_window).std() * np.sqrt(252.0)
@@ -217,7 +225,8 @@ class FeatureBuilder:
         rsi = _rsi(px, self.cfg.rsi_window)
         turnover = (px * vol).rolling(20).mean()
         if max_unit_cost_jpy and max_unit_cost_jpy > 0:
-            afford = (px * unit_shares) <= max_unit_cost_jpy
+            units = pd.Series({c: unit_for(str(c), unit_shares) for c in px.columns})
+            afford = px.mul(units, axis=1) <= max_unit_cost_jpy
         else:
             afford = pd.DataFrame(True, index=px.index, columns=px.columns)
 
