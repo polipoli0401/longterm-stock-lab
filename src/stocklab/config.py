@@ -37,6 +37,7 @@ class DataConfig:
     publication_lag_days: int = 90
     benchmark: str = "1306.T"
     benchmark_alt: str = "^N225"
+    fx_ticker: str = "JPY=X"
     db_path: str = "data/stocklab.db"
 
 
@@ -51,6 +52,22 @@ class FeatureConfig:
     rsi_overheat: float = 80.0
     winsorize_sigma: float = 3.0
     min_turnover_jpy: float = 1.0e8
+
+
+@dataclass(frozen=True)
+class UniverseConfig:
+    """Automatic universe construction (JPX listing + liquidity screen)."""
+
+    mode: str = "static"  # static: keep universe.csv as-is / auto: rebuild weekly
+    segments: list[str] = field(default_factory=lambda: ["prime", "standard"])
+    screen_lookback_days: int = 90
+    min_turnover_jpy: float = 1.0e8
+    max_size: int = 400  # keep top-N by turnover (0 = no cap)
+    extra_file: str = "config/universe_extra.csv"
+    jpx_url: str = (
+        "https://www.jpx.co.jp/markets/statistics-equities/misc/"
+        "tvdivq0000001vg2-att/data_j.xls"
+    )
 
 
 @dataclass(frozen=True)
@@ -127,6 +144,7 @@ class Config:
 
     data: DataConfig
     features: FeatureConfig
+    universe: UniverseConfig
     selection: SelectionConfig
     model: ModelConfig
     backtest: BacktestConfig
@@ -143,6 +161,7 @@ class Config:
         return cls(
             data=DataConfig(**_filter_kwargs(DataConfig, raw.get("data"))),
             features=FeatureConfig(**_filter_kwargs(FeatureConfig, raw.get("features"))),
+            universe=UniverseConfig(**_filter_kwargs(UniverseConfig, raw.get("universe"))),
             selection=SelectionConfig(**_filter_kwargs(SelectionConfig, raw.get("selection"))),
             model=ModelConfig(**_filter_kwargs(ModelConfig, raw.get("model"))),
             backtest=BacktestConfig(**_filter_kwargs(BacktestConfig, raw.get("backtest"))),
