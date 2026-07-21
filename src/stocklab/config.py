@@ -54,6 +54,14 @@ class FeatureConfig:
 
 
 @dataclass(frozen=True)
+class SelectionConfig:
+    """Candidate-selection constraints (budget, lot size)."""
+
+    unit_shares: int = 100
+    max_unit_cost_jpy: float = 0.0  # 0 disables the affordability filter
+
+
+@dataclass(frozen=True)
 class ModelConfig:
     """Model training / walk-forward settings."""
 
@@ -119,6 +127,7 @@ class Config:
 
     data: DataConfig
     features: FeatureConfig
+    selection: SelectionConfig
     model: ModelConfig
     backtest: BacktestConfig
     risk: RiskConfig
@@ -134,6 +143,7 @@ class Config:
         return cls(
             data=DataConfig(**_filter_kwargs(DataConfig, raw.get("data"))),
             features=FeatureConfig(**_filter_kwargs(FeatureConfig, raw.get("features"))),
+            selection=SelectionConfig(**_filter_kwargs(SelectionConfig, raw.get("selection"))),
             model=ModelConfig(**_filter_kwargs(ModelConfig, raw.get("model"))),
             backtest=BacktestConfig(**_filter_kwargs(BacktestConfig, raw.get("backtest"))),
             risk=RiskConfig(**_filter_kwargs(RiskConfig, raw.get("risk"))),

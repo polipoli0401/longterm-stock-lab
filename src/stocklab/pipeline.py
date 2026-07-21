@@ -78,7 +78,9 @@ def prepare_training_data(cfg: Config) -> TrainingData:
     panel = builder.standardize_cross_section(
         panel, builder.model_features, cfg.features.winsorize_sigma
     )
-    filters = builder.build_filters(uni_prices)
+    filters = builder.build_filters(
+        uni_prices, cfg.selection.unit_shares, cfg.selection.max_unit_cost_jpy
+    )
 
     log_event(
         logger,
