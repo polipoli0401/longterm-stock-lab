@@ -2,16 +2,7 @@
 
 An automated analysis system that supports **stock-selection decisions** for long-term investing in Japanese equities. It runs daily on GitHub Actions and delivers a machine-learning-based ranking of buy candidates plus a risk analysis of your current holdings — always with the reasoning attached, as reports and notifications.
 
-> ⚠️ This is a personal research /
-verification project ("lab"), published
-for portfolio and educational purposes.
-This system is for informational
-purposes only. It never executes trades
-automatically, and nothing it outputs is
-a recommendation to buy or sell any
-security. All investment decisions are
-your own responsibility.
-
+> ⚠️ This system is for informational purposes only. It never executes trades automatically, and nothing it outputs is a recommendation to buy or sell any security. All investment decisions are your own responsibility.
 
 ## Key Features
 
@@ -128,6 +119,12 @@ pytest                 # run the test suite
 | `risk.*` | — | Risk detection thresholds, weights, alert threshold |
 | `adoption.*` | — | Composite-score weights and minimum improvement for adoption |
 
+**Budget filter.** Each candidate shows its latest price and minimum lot cost
+(`close x unit_shares`). Candidates whose lot cost exceeds
+`selection.max_unit_cost_jpy` (default: 500,000 JPY) are excluded from the
+top-N. Set it to `0` to disable, or set `unit_shares: 1` if your broker
+supports fractional shares (S-kabu).
+
 Generated reports, notifications, and logs are written in English. To localize them, edit the label constants in `src/stocklab/features/builder.py`, `src/stocklab/risk/analyzer.py`, and the templates in `src/stocklab/report/generator.py`.
 
 ## Data-Leak Prevention
@@ -177,12 +174,6 @@ See [ROADMAP.md](ROADMAP.md) for planned improvements.
 ruff check . && ruff format .   # lint / format
 pytest                          # tests (leak checks, known-value metric checks)
 ```
-
-## Acknowledgements
-
-Developed with AI assistance (Claude by Anthropic).
-Design decisions, verification, and operation
-by the repository owner.
 
 ---
 

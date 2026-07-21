@@ -71,7 +71,9 @@ def run(config_path: str, no_notify: bool = False) -> int:
     panel = builder.standardize_cross_section(
         panel, builder.model_features, cfg.features.winsorize_sigma
     )
-    filters = builder.build_filters(uni_prices)
+    filters = builder.build_filters(
+        uni_prices, cfg.selection.unit_shares, cfg.selection.max_unit_cost_jpy
+    )
 
     last_date = panel["date"].max()
     latest = panel[panel["date"] == last_date].merge(
@@ -129,7 +131,13 @@ def run(config_path: str, no_notify: bool = False) -> int:
     run_date = str(pd.Timestamp(last_date).date())
     reporter = ReportGenerator(cfg.backtest.report_dir)
     markdown = reporter.daily_markdown(
-        run_date, ranked, assessments, meta, len(universe), len(scored)
+        run_date,
+        ranked,
+        assessments,
+        meta,
+        len(universe),
+        len(scored),
+        unit_shares=cfg.selection.unit_shares,
     )
     report_path = reporter.save(markdown, f"daily/{run_date}.md")
     reporter.save(markdown, "latest.md")
