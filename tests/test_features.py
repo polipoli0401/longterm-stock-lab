@@ -139,3 +139,16 @@ def test_build_merges_mixed_datetime_units():
     panel = builder.build(prices, fiscal, shares={"AAA": 1e6})
     assert panel["roe"].notna().any()
     assert panel["earnings_yield"].notna().any()
+
+def test_affordability_filter():
+    """Budget cap excludes expensive tickers; disabled cap passes everything."""
+    prices = _prices(days=250)  # AAA ~100 JPY, BBB ~200 JPY base
+    builder = _builder()
+    f = builder.build_filters(prices, unit_shares=100, max_unit_cost_jpy=15_000)
+    last = f[f["date"] == f["date"].max()].set_index("ticker")
+    assert bool(last.loc["AAA", "f_afford"]) is True
+    assert bool(last.loc["BBB", "f_afford"]) is False
+    assert bool(last.loc["BBB", "filter_pass"]) is False
+
+    off = builder.build_filters(prices)  # cap disabled by default
+    assert off["f_afford"].all()

@@ -82,3 +82,10 @@ def test_filter_pass_nan_treated_as_fail():
     assert scored["T00"].filter_pass is True
     assert scored["T01"].filter_pass is False  # NaN counts as a fail
     assert scored["T02"].filter_pass is False
+
+def test_price_passthrough():
+    latest = _latest()
+    latest["close"] = [1234.5, 200.0, 300.0]
+    results = {s.ticker: s for s in Scorer(FEATURES, pipeline=None).score_latest(latest)}
+    assert results["T00"].price == 1234.5
+    assert results["T01"].price == 200.0
