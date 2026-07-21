@@ -33,6 +33,7 @@ class ScoredTicker:
     name: str
     score: float
     raw_pred: float
+    price: float | None = None
     contributions: list[tuple[str, float]] = field(default_factory=list)
     concerns: list[str] = field(default_factory=list)
     filter_pass: bool = True
@@ -108,6 +109,7 @@ class Scorer:
                     name=str(row.get("name", row["ticker"])),
                     score=round(float(score.iloc[i]), 1),
                     raw_pred=round(float(raw_pred[i]), 5),
+                    price=_price(row),
                     contributions=contributions,
                     concerns=self._concerns(row, pairs),
                     filter_pass=_filter_pass(row),
@@ -142,6 +144,14 @@ class Scorer:
         if n_missing >= max(1, len(self.feature_cols) // 3):
             concerns.append(f"Many missing features ({n_missing}/{len(self.feature_cols)})")
         return concerns
+
+
+def _price(row: pd.Series) -> float | None:
+    """Read the latest close price when present."""
+    value = row.get("close")
+    if value is None or pd.isna(value):
+        return None
+    return round(float(value), 1)
 
 
 def _filter_pass(row: pd.Series) -> bool:
