@@ -27,8 +27,8 @@ features:
   min_turnover_jpy: 100000000      # liquidity filter: 20-day average turnover (JPY)
 
 selection:
-  unit_shares: 100          # S株で買うなら 1 に
-  max_unit_cost_jpy: 500000 # 予算上限。0で無効
+  unit_shares: 100          # set to 1 if you buy fractional shares (S-kabu)
+  max_unit_cost_jpy: 500000 # budget cap for one lot; 0 disables the filter
 
 model:
   horizon_days: 126                # target look-ahead (trading days); e.g. 30/63/126/252
