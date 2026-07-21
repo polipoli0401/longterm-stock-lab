@@ -7,6 +7,8 @@
 
 ### #1 Advantest (6857.T) - composite score 100.0
 
+Price: 29,630 JPY / min lot (100 sh): 2,963,000 JPY
+
 Why (contribution, in predicted excess-return %):
 - +30.8 ROA
 - -10.6 ROE
@@ -19,8 +21,12 @@ Concerns:
 - ROE contributes negatively (-10.6)
 - Operating margin contributes negatively (-7.1)
 - Equity ratio contributes negatively (-5.1)
+- Minimum lot cost above the budget cap
+- Failed technical filters (listed for reference)
 
 ### #2 SoftBank Group (9984.T) - composite score 98.1
+
+Price: 5,751 JPY / min lot (100 sh): 575,100 JPY
 
 Why (contribution, in predicted excess-return %):
 - +10.1 Volatility
@@ -34,8 +40,12 @@ Concerns:
 - ROA contributes negatively (-5.6)
 - Value (book-to-price) contributes negatively (-1.1)
 - Operating CF margin contributes negatively (-0.4)
+- Minimum lot cost above the budget cap
+- Failed technical filters (listed for reference)
 
 ### #3 Tokyo Electron (8035.T) - composite score 96.3
+
+Price: 66,570 JPY / min lot (100 sh): 6,657,000 JPY
 
 Why (contribution, in predicted excess-return %):
 - +22.0 ROA
@@ -49,6 +59,8 @@ Concerns:
 - ROE contributes negatively (-6.5)
 - Equity ratio contributes negatively (-6.4)
 - Operating margin contributes negatively (-2.5)
+- Minimum lot cost above the budget cap
+- Failed technical filters (listed for reference)
 
 ## Holdings Risk
 
