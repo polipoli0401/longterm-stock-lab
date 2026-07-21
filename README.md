@@ -119,6 +119,24 @@ pytest                 # run the test suite
 | `risk.*` | — | Risk detection thresholds, weights, alert threshold |
 | `adoption.*` | — | Composite-score weights and minimum improvement for adoption |
 
+**Automatic universe (JPX + liquidity screen).** With ``universe.mode: auto``
+(the default), the weekly job downloads the official JPX listing, keeps
+domestic common stocks in the configured segments (Prime/Standard by
+default), screens them by 20-day average turnover
+(``min_turnover_jpy``), caps the list at ``max_size`` names by turnover
+(set ``0`` for no cap and a deeper small-cap reach), merges the
+always-include ``config/universe_extra.csv`` (US stocks, manual picks),
+and rewrites ``config/universe.csv``. Japanese names come from the JPX
+file as-is. Set ``mode: static`` to manage ``universe.csv`` by hand.
+
+**Mixed JP/US universe.** US tickers (no ``.T`` suffix, e.g. ``AAPL``) can
+be listed in ``config/universe.csv`` alongside Japanese stocks. Their prices
+are converted to JPY daily using the USDJPY rate (``JPY=X``), so momentum,
+targets, backtests, and the budget filter all reflect what a JPY-based
+(NISA) investor experiences, currency moves included. Financial ratios and
+value metrics are computed in the listing currency, US lots are 1 share,
+and the benchmark stays TOPIX for every ticker.
+
 **Budget filter.** Each candidate shows its latest price and minimum lot cost
 (`close x unit_shares`). Candidates whose lot cost exceeds
 `selection.max_unit_cost_jpy` (default: 500,000 JPY) are excluded from the
