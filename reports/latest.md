@@ -5,28 +5,9 @@
 
 ## Top 3 Buy Candidates
 
-### #1 Advantest (6857.T) - composite score 100.0
+### #1 SoftBank Group (9984.T) - composite score 98.1
 
-Price: 29,630 JPY / min lot (100 sh): 2,963,000 JPY
-
-Why (contribution, in predicted excess-return %):
-- +30.8 ROA
-- -10.6 ROE
-- -7.1 Operating margin
-- +6.5 Volatility
-- -5.1 Equity ratio
-- +3.9 Margin improvement
-
-Concerns:
-- ROE contributes negatively (-10.6)
-- Operating margin contributes negatively (-7.1)
-- Equity ratio contributes negatively (-5.1)
-- Minimum lot cost above the budget cap
-- Failed technical filters (listed for reference)
-
-### #2 SoftBank Group (9984.T) - composite score 98.1
-
-Price: 5,751 JPY / min lot (100 sh): 575,100 JPY
+Price: 5,751 JPY / min lot (1 sh): 5,751 JPY
 
 Why (contribution, in predicted excess-return %):
 - +10.1 Volatility
@@ -40,27 +21,40 @@ Concerns:
 - ROA contributes negatively (-5.6)
 - Value (book-to-price) contributes negatively (-1.1)
 - Operating CF margin contributes negatively (-0.4)
-- Minimum lot cost above the budget cap
-- Failed technical filters (listed for reference)
 
-### #3 Tokyo Electron (8035.T) - composite score 96.3
+### #2 Honda Motor (7267.T) - composite score 94.4
 
-Price: 66,570 JPY / min lot (100 sh): 6,657,000 JPY
+Price: 1,557 JPY / min lot (1 sh): 1,557 JPY
 
 Why (contribution, in predicted excess-return %):
-- +22.0 ROA
-- -6.5 ROE
-- -6.4 Equity ratio
-- +5.4 Volatility
-- +2.6 6-month momentum
-- -2.5 Operating margin
+- -11.7 ROA
+- +6.1 Value (book-to-price)
+- +5.8 ROE
+- +5.7 Value (earnings yield)
+- +4.3 Equity ratio
+- +4.2 Operating margin
 
 Concerns:
-- ROE contributes negatively (-6.5)
-- Equity ratio contributes negatively (-6.4)
-- Operating margin contributes negatively (-2.5)
-- Minimum lot cost above the budget cap
-- Failed technical filters (listed for reference)
+- ROA contributes negatively (-11.7)
+- Margin improvement contributes negatively (-2.5)
+- Volatility contributes negatively (-0.6)
+
+### #3 Murata Manufacturing (6981.T) - composite score 90.7
+
+Price: 8,001 JPY / min lot (1 sh): 8,001 JPY
+
+Why (contribution, in predicted excess-return %):
+- +10.1 Volatility
+- -10.0 Equity ratio
+- +4.5 6-month momentum
+- -1.9 Value (book-to-price)
+- +1.8 ROA
+- +1.5 Value (earnings yield)
+
+Concerns:
+- Equity ratio contributes negatively (-10.0)
+- Value (book-to-price) contributes negatively (-1.9)
+- 3-month momentum contributes negatively (-0.5)
 
 ## Holdings Risk
 
