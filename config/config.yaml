@@ -15,6 +15,7 @@ data:
   publication_lag_days: 90         # publication lag: point-in-time approximation (leak prevention)
   benchmark: "1306.T"              # benchmark (TOPIX ETF)
   benchmark_alt: "^N225"           # fallback benchmark (Nikkei 225)
+  fx_ticker: "JPY=X"               # USDJPY rate used to value US stocks in JPY
   db_path: data/stocklab.db
 
 features:
@@ -26,9 +27,17 @@ features:
   winsorize_sigma: 3.0             # clip width after cross-sectional z-scoring (+/- sigma)
   min_turnover_jpy: 100000000      # liquidity filter: 20-day average turnover (JPY)
 
+universe:
+  mode: auto                       # auto: rebuild universe.csv weekly from the JPX list / static: keep as-is
+  segments: [prime, standard]      # prime / standard / growth (domestic common stocks)
+  screen_lookback_days: 90         # price history used for the liquidity screen
+  min_turnover_jpy: 100000000      # tradability floor: 20-day average turnover
+  max_size: 400                    # keep top-N by turnover (0 = no cap; more small caps)
+  extra_file: config/universe_extra.csv   # always-include list (US stocks, manual picks)
+
 selection:
-  unit_shares: 1          # set to 1 if you buy fractional shares (S-kabu)
-  max_unit_cost_jpy: 10000 # budget cap for one lot; 0 disables the filter
+  unit_shares: 1                   # JP shares per unit: 100 for board lots, 1 for fractional/S-kabu
+  max_unit_cost_jpy: 10000         # budget cap for one lot in JPY (US stocks trade as 1 share); 0 = off
 
 model:
   horizon_days: 126                # target look-ahead (trading days); e.g. 30/63/126/252
