@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 import math
 import shutil
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -97,7 +97,7 @@ class ModelRegistry:
     def record_decision(self, decision: dict[str, Any]) -> None:
         """Append the adopt/keep decision to the append-only log."""
         record = {
-            "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "ts": datetime.now(UTC).isoformat(timespec="seconds"),
             **decision,
         }
         with open(self.dir / self.DECISION_LOG, "a", encoding="utf-8") as fh:
