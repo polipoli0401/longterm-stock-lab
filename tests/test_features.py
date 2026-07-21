@@ -141,14 +141,51 @@ def test_build_merges_mixed_datetime_units():
     assert panel["earnings_yield"].notna().any()
 
 def test_affordability_filter():
-    """Budget cap excludes expensive tickers; disabled cap passes everything."""
-    prices = _prices(days=250)  # AAA ~100 JPY, BBB ~200 JPY base
+    """Budget cap uses per-market units (JP lots vs US single shares)."""
+    prices = _prices(days=250, tickers=("AAA.T", "USD1"))  # ~100 and ~200 base
     builder = _builder()
     f = builder.build_filters(prices, unit_shares=100, max_unit_cost_jpy=15_000)
     last = f[f["date"] == f["date"].max()].set_index("ticker")
-    assert bool(last.loc["AAA", "f_afford"]) is True
-    assert bool(last.loc["BBB", "f_afford"]) is False
-    assert bool(last.loc["BBB", "filter_pass"]) is False
+    # JP lot = price*100 (~11k) passes; US single share (~230) also passes.
+    assert bool(last.loc["AAA.T", "f_afford"]) is True
+    assert bool(last.loc["USD1", "f_afford"]) is True
+
+    tight = builder.build_filters(prices, unit_shares=100, max_unit_cost_jpy=1_000)
+    last_t = tight[tight["date"] == tight["date"].max()].set_index("ticker")
+    # JP lot (~11k) now fails; a single US share (~230) still fits the cap.
+    assert bool(last_t.loc["AAA.T", "f_afford"]) is False
+    assert bool(last_t.loc["AAA.T", "filter_pass"]) is False
+    assert bool(last_t.loc["USD1", "f_afford"]) is True
 
     off = builder.build_filters(prices)  # cap disabled by default
     assert off["f_afford"].all()
+
+def test_value_metrics_use_native_currency():
+    """FX must cancel out of value ratios for USD-listed tickers."""
+    prices = _prices(days=250, tickers=("USDX",))  # no .T -> treated as USD
+    fx = pd.Series(150.0, index=sorted(prices["date"].unique()))
+    from stocklab.currency import convert_prices_to_jpy
+
+    converted = convert_prices_to_jpy(prices, fx, {"USDX"})
+    fiscal = pd.DataFrame(
+        {
+            "ticker": ["USDX"],
+            "fiscal_end": ["2022-01-31"],
+            "revenue": [100.0],
+            "operating_income": [10.0],
+            "net_income": [8.0],
+            "eps": [1.0],
+            "equity": [50.0],
+            "total_assets": [100.0],
+            "operating_cf": [12.0],
+            "free_cf": [9.0],
+        }
+    )
+    builder = _builder()
+    panel = builder.build(converted, fiscal, shares={"USDX": 10.0})
+    row = panel.dropna(subset=["earnings_yield"]).iloc[-1]
+    native_close = float(
+        converted[converted["ticker"] == "USDX"]["close_native"].iloc[-1]
+    )
+    expected = 8.0 / (native_close * 10.0)
+    assert math.isclose(float(row["earnings_yield"]), expected, rel_tol=1e-9)
