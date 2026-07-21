@@ -58,6 +58,7 @@ class ReportGenerator:
         model_meta: dict[str, Any] | None,
         universe_size: int,
         analyzed: int,
+        unit_shares: int = 100,
     ) -> str:
         """Generate the daily analysis report (Markdown)."""
         model_desc = _model_description(model_meta)
@@ -73,6 +74,12 @@ class ReportGenerator:
         for rank, s in enumerate(ranked, start=1):
             lines.append(f"### #{rank} {s.name} ({s.ticker}) - composite score {s.score:.1f}")
             lines.append("")
+            if s.price is not None:
+                lot = s.price * unit_shares
+                lines.append(
+                    f"Price: {s.price:,.0f} JPY / min lot ({unit_shares} sh): {lot:,.0f} JPY"
+                )
+                lines.append("")
             lines.append("Why (contribution, in predicted excess-return %):")
             for label, value in s.contributions[:6]:
                 lines.append(f"- {value:+.1f} {label}")
@@ -115,7 +122,8 @@ class ReportGenerator:
         for rank, s in enumerate(ranked, start=1):
             tops = ", ".join(label for label, value in s.contributions[:2] if value > 0)
             suffix = f" / {tops}" if tops else ""
-            lines.append(f"{rank}. {s.name} ({s.ticker}) score {s.score:.0f}{suffix}")
+            price_part = f" @ {s.price:,.0f} JPY" if s.price is not None else ""
+            lines.append(f"{rank}. {s.name} ({s.ticker}) score {s.score:.0f}{price_part}{suffix}")
         lines.append("")
         if alerts:
             lines.append("⚠️ Holdings risk alerts")
