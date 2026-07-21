@@ -28,7 +28,7 @@ features:
 
 selection:
   unit_shares: 100          # set to 1 if you buy fractional shares (S-kabu)
-  max_unit_cost_jpy: 500000 # budget cap for one lot; 0 disables the filter
+  max_unit_cost_jpy: 10000 # budget cap for one lot; 0 disables the filter
 
 model:
   horizon_days: 126                # target look-ahead (trading days); e.g. 30/63/126/252
