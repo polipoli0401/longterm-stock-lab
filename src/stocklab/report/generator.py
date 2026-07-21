@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from stocklab.backtest.engine import BacktestResult
+from stocklab.currency import unit_for
 from stocklab.logger import get_logger, log_event
 from stocklab.risk.analyzer import RiskAssessment
 from stocklab.scoring.scorer import ScoredTicker
@@ -75,9 +76,10 @@ class ReportGenerator:
             lines.append(f"### #{rank} {s.name} ({s.ticker}) - composite score {s.score:.1f}")
             lines.append("")
             if s.price is not None:
-                lot = s.price * unit_shares
+                unit = unit_for(s.ticker, unit_shares)
+                lot = s.price * unit
                 lines.append(
-                    f"Price: {s.price:,.0f} JPY / min lot ({unit_shares} sh): {lot:,.0f} JPY"
+                    f"Price: {s.price:,.0f} JPY / min lot ({unit} sh): {lot:,.0f} JPY"
                 )
                 lines.append("")
             lines.append("Why (contribution, in predicted excess-return %):")
