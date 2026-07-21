@@ -64,6 +64,7 @@ FILTER_LABELS: dict[str, str] = {
     "f_trend": "Below the long-term (200-day) moving average",
     "f_heat": "RSI in overheated territory",
     "f_liquid": "Liquidity (turnover) below threshold",
+    "f_afford": "Minimum lot cost above the budget cap",
 }
 
 
@@ -191,15 +192,23 @@ class FeatureBuilder:
         return f[out_cols]
 
     # ----------------------------------------------------------- filter
-    def build_filters(self, prices: pd.DataFrame) -> pd.DataFrame:
-        """Build technical filters (never used as learned weights).
+    def build_filters(
+        self,
+        prices: pd.DataFrame,
+        unit_shares: int = 100,
+        max_unit_cost_jpy: float = 0.0,
+    ) -> pd.DataFrame:
+        """Build technical/selection filters (never used as learned weights).
 
         - f_trend: above the long moving average (max of ma_windows)
         - f_heat: RSI below the overheat threshold (rsi_overheat)
         - f_liquid: 20-day average turnover at/above the threshold
+        - f_afford: minimum lot cost (close x unit_shares) within budget
+          (always True when ``max_unit_cost_jpy`` is 0/disabled)
 
         Returns:
-            Columns ``date, ticker, f_trend, f_heat, f_liquid, filter_pass``.
+            Columns ``date, ticker, f_trend, f_heat, f_liquid, f_afford,
+            filter_pass``.
         """
         px = _pivot(prices, "close")
         vol = _pivot(prices, "volume")
@@ -207,11 +216,16 @@ class FeatureBuilder:
         long_ma = px.rolling(max(self.cfg.ma_windows)).mean()
         rsi = _rsi(px, self.cfg.rsi_window)
         turnover = (px * vol).rolling(20).mean()
+        if max_unit_cost_jpy and max_unit_cost_jpy > 0:
+            afford = (px * unit_shares) <= max_unit_cost_jpy
+        else:
+            afford = pd.DataFrame(True, index=px.index, columns=px.columns)
 
         flags = {
             "f_trend": px > long_ma,
             "f_heat": rsi < self.cfg.rsi_overheat,
             "f_liquid": turnover >= self.cfg.min_turnover_jpy,
+            "f_afford": afford,
         }
         long = _merge_wide(flags)
         for col in flags:
