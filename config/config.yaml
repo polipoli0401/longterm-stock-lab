@@ -77,36 +77,3 @@ adoption:                          # model adoption (composite-score weights)
   w_excess: 0.3
   w_mdd: 0.1
   min_improvement: 0.0             # keep the old model unless improvement exceeds this
-
-notify:
-  discord_enabled: true
-  line_enabled: false              # LINE Notify sunset (2025-03); off by default
-  notify_time_jst: "07:30"
-  include_reasons_top_n: 6         # number of feature contributions shown per ticker
-  include_concerns_top_n: 3        # number of negative contributions shown per ticker
-
-report:
-  language: ja
-  decimal_places: 1
-  show_disclaimer: true
-
-output:
-  reports_dir: reports
-  keep_reports_days: 180
-
-# ---------------------------------------------------------------------
-# Fundamental features (learned)
-#   These keys map 1:1 to columns produced by fundamentals.py.
-#   Removing a line here removes the feature from training.
-# ---------------------------------------------------------------------
-fundamental_features:
-  - roa                    # return on assets
-  # - roe                  # 2026-07-22: roaと内容が重複（多重共線性）のため学習から除外
-  - operating_margin       # operating income / revenue
-  - profit_margin          # net income / revenue
-  - equity_ratio           # shareholders' equity / total assets
-  - book_to_price          # 1 / PBR
-  - earnings_yield         # 1 / PER
-  - operating_cf_margin    # operating cash flow / revenue
-  - eps_growth             # EPS growth rate (YoY)
-  - margin_improvement     # operating-margin change (YoY)
