@@ -11,7 +11,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-#import logging
 
 from stocklab.config import Config
 from stocklab.data.universe_builder import build_universe
