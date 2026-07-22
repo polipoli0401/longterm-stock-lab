@@ -30,7 +30,7 @@ FUNDAMENTAL_BASE_FEATURES = [
     "rev_growth",       # revenue growth (YoY)
     "eps_growth",       # EPS growth (YoY)
     "op_margin_delta",  # change in operating margin
-    #"roe",
+    # "roe",  # 2026-07-22: excluded (collinear with roa; OLS coefficient tug-of-war)
     "roa",
     "op_margin",
     "ocf_margin",       # operating cash-flow margin
