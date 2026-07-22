@@ -29,6 +29,9 @@ jobs:
       - name: Install dependencies
         run: pip install -e .
 
+      - name: Rebuild universe (JPX list + liquidity screen)
+        run: python build_universe.py
+
       - name: Train, evaluate and adopt model
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
