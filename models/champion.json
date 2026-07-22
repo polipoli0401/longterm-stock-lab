@@ -1,8 +1,7 @@
 {
-  "model_name": "lasso",
+  "model_name": "ridge",
   "params": {
-    "alpha": 0.001,
-    "max_iter": 50000
+    "alpha": 1.0
   },
   "feature_cols": [
     "mom_21",
@@ -12,7 +11,6 @@
     "rev_growth",
     "eps_growth",
     "op_margin_delta",
-    "roe",
     "roa",
     "op_margin",
     "ocf_margin",
@@ -26,36 +24,35 @@
   "metrics": {
     "n_periods": 13.0,
     "years": 6.5,
-    "cagr": 0.8071198103929436,
-    "annual_return": 0.740601101024683,
-    "sharpe": 1.818826590711837,
+    "cagr": 0.7458988688499026,
+    "annual_return": 0.7003625558758372,
+    "sharpe": 1.654405897212354,
     "sortino": NaN,
-    "max_drawdown": -0.04960955462877892,
-    "calmar": 16.269442780377766,
-    "profit_factor": 98.03588739472072,
+    "max_drawdown": -0.049609394284488184,
+    "calmar": 15.03543592111806,
+    "profit_factor": 92.76400314600019,
     "win_rate": 0.9230769230769231,
-    "excess_return": 0.5579663709220226,
-    "benchmark_cagr": 0.1810990257667282
+    "excess_return": 0.5177278418312151,
+    "benchmark_cagr": 0.18109900531745593
   },
-  "composite": 1.0513835541770526,
+  "composite": 0.961299545775838,
   "importance": {
-    "mom_21": -0.0008230832495832881,
-    "mom_63": 0.0033829985948392164,
-    "mom_126": 0.00859633357647404,
-    "volatility": 0.0513291383260522,
-    "rev_growth": 0.0003017202391638812,
-    "eps_growth": 0.0,
-    "op_margin_delta": 0.008013037966317875,
-    "roe": 0.007182339097726408,
-    "roa": 0.0,
-    "op_margin": -0.009773435731098838,
-    "ocf_margin": 0.0,
-    "equity_ratio": -0.016962121446522063,
-    "earnings_yield": -0.0022073902930981287,
-    "book_to_price": 0.0,
-    "fcf_yield": -0.0
+    "mom_21": -0.0032767078410836973,
+    "mom_63": 0.004676264555970457,
+    "mom_126": 0.009248028286011071,
+    "volatility": 0.05146095150351934,
+    "rev_growth": 0.00614814013521425,
+    "eps_growth": -0.0037148898352752733,
+    "op_margin_delta": 0.01340209325091346,
+    "roa": 0.052804548637291754,
+    "op_margin": -0.037713981049554056,
+    "ocf_margin": 0.025780700173647326,
+    "equity_ratio": -0.040763175130568506,
+    "earnings_yield": -0.027113833087857576,
+    "book_to_price": 0.023540143975355404,
+    "fcf_yield": -0.01932767151802565
   },
   "train_end": "2026-01-15",
   "adopted_at": "2026-07-22",
-  "reason": "First training run - adopted (no champion to compare)"
+  "reason": "Feature set or target definition changed - adopting the retrained model"
 }
