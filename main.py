@@ -18,6 +18,7 @@ import pandas as pd
 from stocklab.config import Config
 from stocklab.currency import convert_prices_to_jpy, extract_fx_series, usd_tickers
 from stocklab.data.fetcher import FundamentalFetcher, PriceFetcher
+from stocklab.data.market_calendar import align_prices_to_calendar, jp_calendar
 from stocklab.data.storage import Storage
 from stocklab.features.builder import FEATURE_LABELS, FeatureBuilder
 from stocklab.inputs import load_holdings, load_universe
@@ -63,6 +64,7 @@ def run(config_path: str, no_notify: bool = False) -> int:
             raise RuntimeError("Could not fetch the USDJPY rate for US tickers")
         prices = convert_prices_to_jpy(prices, fx, usd)
         prices = prices[prices["ticker"] != cfg.data.fx_ticker].reset_index(drop=True)
+    prices = align_prices_to_calendar(prices, jp_calendar(prices))
     storage.upsert_prices(prices)
 
     if storage.fundamentals_stale(cfg.data.fundamental_refresh_days):
