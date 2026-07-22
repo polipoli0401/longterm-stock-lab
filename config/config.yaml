@@ -78,10 +78,6 @@ adoption:                          # model adoption (composite-score weights)
   w_mdd: 0.1
   min_improvement: 0.0             # keep the old model unless improvement exceeds this
 
-# NOTE (2026-07-22): ここに重複した "model:" ブロックがあったため削除。
-# YAMLは同じトップレベルキーが2回あると後の方が前を上書きするので、
-# model.candidates / model.params が無視されるバグの原因になっていた。
-
 notify:
   discord_enabled: true
   line_enabled: false              # LINE Notify sunset (2025-03); off by default
