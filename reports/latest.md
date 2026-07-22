@@ -7,13 +7,13 @@
 
 ### #1 SoftBank Group (9984.T) - composite score 98.7
 
-Price: 5,865 JPY / min lot (1 sh): 5,865 JPY
+Price: 5,703 JPY / min lot (1 sh): 5,703 JPY
 
 Why (contribution, in predicted excess-return %):
 - +10.1 Volatility
 - +7.0 Equity ratio
 - -5.6 ROA
-- +1.7 6-month momentum
+- +1.5 6-month momentum
 - +1.4 EPS growth
 - +1.3 Operating margin
 
@@ -24,7 +24,7 @@ Concerns:
 
 ### #2 Honda Motor (7267.T) - composite score 94.9
 
-Price: 1,562 JPY / min lot (1 sh): 1,562 JPY
+Price: 1,559 JPY / min lot (1 sh): 1,559 JPY
 
 Why (contribution, in predicted excess-return %):
 - -11.7 ROA
@@ -41,19 +41,19 @@ Concerns:
 
 ### #3 Murata Manufacturing (6981.T) - composite score 92.4
 
-Price: 8,573 JPY / min lot (1 sh): 8,573 JPY
+Price: 8,317 JPY / min lot (1 sh): 8,317 JPY
 
 Why (contribution, in predicted excess-return %):
 - +10.1 Volatility
 - -10.0 Equity ratio
 - +4.5 6-month momentum
-- -2.0 Value (book-to-price)
+- -1.9 Value (book-to-price)
 - +1.8 ROA
-- +1.6 Value (earnings yield)
+- +1.5 Value (earnings yield)
 
 Concerns:
 - Equity ratio contributes negatively (-10.0)
-- Value (book-to-price) contributes negatively (-2.0)
+- Value (book-to-price) contributes negatively (-1.9)
 - 3-month momentum contributes negatively (-0.5)
 
 ## Holdings Risk
