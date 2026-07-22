@@ -30,7 +30,7 @@ FUNDAMENTAL_BASE_FEATURES = [
     "rev_growth",       # revenue growth (YoY)
     "eps_growth",       # EPS growth (YoY)
     "op_margin_delta",  # change in operating margin
-    "roe",
+    #"roe",
     "roa",
     "op_margin",
     "ocf_margin",       # operating cash-flow margin
