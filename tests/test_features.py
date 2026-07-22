@@ -100,7 +100,7 @@ def test_build_without_fundamentals_keeps_columns():
     panel = builder.build(prices, fundamentals=None, shares=None)
     for col in builder.model_features:
         assert col in panel.columns
-    assert panel["roe"].isna().all()
+    assert panel["roa"].isna().all()
 
 def test_momentum_matches_manual_calculation():
     prices = _prices(days=260, tickers=("AAA",))
@@ -137,7 +137,7 @@ def test_build_merges_mixed_datetime_units():
     fiscal["fiscal_end"] = fiscal["fiscal_end"].astype("datetime64[us]")
     builder = _builder()
     panel = builder.build(prices, fiscal, shares={"AAA": 1e6})
-    assert panel["roe"].notna().any()
+    assert panel["roa"].notna().any()
     assert panel["earnings_yield"].notna().any()
 
 def test_affordability_filter():
