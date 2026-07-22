@@ -1,0 +1,60 @@
+{
+  "model_name": "elasticnet",
+  "params": {
+    "alpha": 0.001,
+    "l1_ratio": 0.5,
+    "max_iter": 50000
+  },
+  "feature_cols": [
+    "mom_21",
+    "mom_63",
+    "mom_126",
+    "volatility",
+    "rev_growth",
+    "eps_growth",
+    "op_margin_delta",
+    "roa",
+    "op_margin",
+    "ocf_margin",
+    "equity_ratio",
+    "earnings_yield",
+    "book_to_price",
+    "fcf_yield"
+  ],
+  "horizon_days": 126,
+  "target_type": "excess",
+  "metrics": {
+    "n_periods": 13.0,
+    "years": 6.5,
+    "cagr": 0.4551799870762301,
+    "annual_return": 0.5446795799130357,
+    "sharpe": 0.8934634812163599,
+    "sortino": 16.286624339374562,
+    "max_drawdown": -0.4510859507414602,
+    "calmar": 1.0090759562075486,
+    "profit_factor": 5.80767042554579,
+    "win_rate": 0.7692307692307693,
+    "excess_return": 0.3620448217427459,
+    "benchmark_cagr": 0.18109904621600315
+  },
+  "composite": 0.5119262413504678,
+  "importance": {
+    "mom_21": -152.51002715688597,
+    "mom_63": -71.7208459442091,
+    "mom_126": -278.1165934172653,
+    "volatility": 390.6211439836124,
+    "rev_growth": 4.491354929834114,
+    "eps_growth": 1.9233572774305423,
+    "op_margin_delta": -4.017498929227014,
+    "roa": -46.916465112236494,
+    "op_margin": -1.0221640454800245,
+    "ocf_margin": 11.040042751363037,
+    "equity_ratio": -58.27379834469708,
+    "earnings_yield": 47.23569066876389,
+    "book_to_price": -19.95193808657306,
+    "fcf_yield": -0.3260922076935771
+  },
+  "train_end": "2026-01-15",
+  "adopted_at": "2026-07-22",
+  "reason": "First training run - adopted (no champion to compare)"
+}
