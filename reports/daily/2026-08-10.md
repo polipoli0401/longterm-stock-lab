@@ -10,32 +10,32 @@
 Price: 8,006 JPY / min lot (1 sh): 8,006 JPY
 
 Why (contribution, in predicted excess-return %):
-- +101783.2 Volatility
-- +32705.9 1-month momentum
-- -4191.8 6-month momentum
+- +101787.4 Volatility
+- +32658.8 1-month momentum
+- -4196.7 6-month momentum
 - -3292.0 Equity ratio
-- -2606.5 3-month momentum
-- -2538.9 Value (earnings yield)
+- -2600.7 3-month momentum
+- -2537.7 Value (earnings yield)
 
 Concerns:
-- 6-month momentum contributes negatively (-4191.8)
+- 6-month momentum contributes negatively (-4196.7)
 - Equity ratio contributes negatively (-3292.0)
-- 3-month momentum contributes negatively (-2606.5)
+- 3-month momentum contributes negatively (-2600.7)
 
 ### #2 野村マイクロ・サイエンス (6254.T) - composite score 98.4
 
 Price: 3,820 JPY / min lot (1 sh): 3,820 JPY
 
 Why (contribution, in predicted excess-return %):
-- +70831.0 Volatility
-- +16283.5 1-month momentum
-- +7791.7 3-month momentum
-- +4191.8 6-month momentum
+- +70829.7 Volatility
+- +16265.3 1-month momentum
+- +7788.7 3-month momentum
+- +4197.5 6-month momentum
 - +3540.0 Equity ratio
 - +1709.0 ROA
 
 Concerns:
-- Value (earnings yield) contributes negatively (-1659.4)
+- Value (earnings yield) contributes negatively (-1658.2)
 - Revenue growth contributes negatively (-584.7)
 - Operating CF margin contributes negatively (-45.5)
 
@@ -44,16 +44,16 @@ Concerns:
 Price: 5,484 JPY / min lot (1 sh): 5,484 JPY
 
 Why (contribution, in predicted excess-return %):
-- +86480.8 Volatility
-- +7765.5 1-month momentum
-- -7441.3 6-month momentum
+- +86482.2 Volatility
+- +7762.2 1-month momentum
+- -7450.3 6-month momentum
 - +6415.2 Equity ratio
-- +5373.1 3-month momentum
+- +5372.2 3-month momentum
 - +2385.6 ROA
 
 Concerns:
-- 6-month momentum contributes negatively (-7441.3)
-- Value (earnings yield) contributes negatively (-710.5)
+- 6-month momentum contributes negatively (-7450.3)
+- Value (earnings yield) contributes negatively (-709.2)
 - EPS growth contributes negatively (-151.6)
 
 ## Holdings Risk
